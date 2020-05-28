@@ -193,11 +193,11 @@ export async function getGlobalStyles(configPath): Promise<string> {
     // create style.less file
     fileContent = `
 /* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */ 
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
 
 .markdown-preview.markdown-preview {
   // modify your style here
-  // eg: background-color: blue;  
+  // eg: background-color: blue;
 }
 `;
     await writeFile(globalLessFilePath, fileContent, { encoding: "utf-8" });
@@ -459,17 +459,11 @@ export function addFileProtocol(
  * @param filePath
  */
 export function removeFileProtocol(filePath: string): string {
-  if (process.platform === "win32") {
-    return filePath
-      .replace(/^(file|vscode-resource|vscode-webview-resource)\:\/+/, "")
-      .replace(/^file\/+/, "");
-  } else {
     return (
       filePath
         .replace(/^(file|vscode-resource|vscode-webview-resource)\:\/+/, "")
-        .replace(/^file\/+/, "") + "/"
+        .replace(/^file\/+/, "")
     );
-  }
 }
 
 /**
