@@ -459,11 +459,8 @@ export function addFileProtocol(
  * @param filePath
  */
 export function removeFileProtocol(filePath: string): string {
-    return (
-      filePath
-        .replace(/^(file|vscode-resource|vscode-webview-resource)\:\/+/, "")
-        .replace(/^file\/+/, "")
-    );
+  return filePath
+    .replace(/^(file|vscode-resource|vscode-webview-resource)\:\/\//, "")
 }
 
 /**
