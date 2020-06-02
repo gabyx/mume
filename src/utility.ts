@@ -459,8 +459,24 @@ export function addFileProtocol(
  * @param filePath
  */
 export function removeFileProtocol(filePath: string): string {
-  return filePath
-    .replace(/^(file|vscode-resource|vscode-webview-resource)\:\/\//, "")
+  // See https://regex101.com/r/YlpEur/8/
+  // - "file://///a///b//c/d"                   ---> "a///b//c/d"
+  // - "vscode-resource://///file///a///b//c/d" ---> "file///a///b//c/d"
+  const regex = /^(?:(?:file|(vscode)-(?:webview-)?resource|vscode--resource):\/+)(.*)/m;
+
+  return filePath.replace(regex, (m, isVSCode, rest) => {
+    if (isVSCode) {
+      // For vscode urls -> Remove `://file/...` host
+      rest = rest.replace(/^file\/+/, "/");
+    }
+
+    if (process.platform !== "win32" && rest.startsWith !== "/") {
+      // On Linux platform, add a slash at the front
+      return "/" + rest;
+    } else {
+      return rest;
+    }
+  });
 }
 
 /**
