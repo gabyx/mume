@@ -17,6 +17,7 @@
     "dependencies",
     "docs",
     "out",
+    "src",
     "styles"
   ],
   "scripts": {
